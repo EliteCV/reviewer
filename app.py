@@ -1,4 +1,3 @@
-
 import streamlit as st
 import fitz  # PyMuPDF
 import openai
@@ -33,9 +32,10 @@ if st.button("Review My CV"):
     else:
         with st.spinner("Analyzing your CV with AI..."):
             try:
-                prompt = f"Please review the following CV and give detailed, professional feedback for improvement:
-
-{cv_text}"
+                prompt = (
+                    "Please review the following CV and give detailed, professional feedback for improvement:\n\n"
+                    + cv_text
+                )
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[{"role": "user", "content": prompt}],
@@ -45,4 +45,4 @@ if st.button("Review My CV"):
                 st.subheader("AI Feedback:")
                 st.write(feedback)
             except Exception as e:
-                st.error("An error occurred: " + str(e))
+                st.error("An error occurred: " + str(e)) 
