@@ -2,8 +2,8 @@ import streamlit as st
 import fitz  # PyMuPDF
 import openai
 
-# Set your OpenAI API key here
-openai.api_key = st.secrets["OPENAI_API_KEY"] if "OPENAI_API_KEY" in st.secrets else "your-api-key-here"
+# Initialize OpenAI client
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"] if "OPENAI_API_KEY" in st.secrets else "your-api-key-here")
 
 st.title("AI CV Reviewer")
 st.write("Upload your CV as a PDF or paste it below for instant AI feedback.")
@@ -36,13 +36,13 @@ if st.button("Review My CV"):
                     "Please review the following CV and give detailed, professional feedback for improvement:\n\n"
                     + cv_text
                 )
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model="gpt-3.5-turbo",
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=800
                 )
-                feedback = response['choices'][0]['message']['content']
+                feedback = response.choices[0].message.content
                 st.subheader("AI Feedback:")
                 st.write(feedback)
             except Exception as e:
-                st.error("An error occurred: " + str(e)) 
+                st.error("An error occurred: " + str(e))
