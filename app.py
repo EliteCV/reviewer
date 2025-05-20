@@ -1,3 +1,6 @@
+st.title("EliteCV - AI CV Reviewer")
+# Email input should come early
+email = st.text_input("Enter your email (optional)", placeholder="you@example.com")
 Gesprek geopend. 1 gelezen bericht.
 
 Spring naar content
