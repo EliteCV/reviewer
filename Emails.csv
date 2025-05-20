@@ -2,7 +2,6 @@ import streamlit as st
 import openai
 import fitz  # PyMuPDF
 import os
-
 st.set_page_config(page_title="AI CV Reviewer", layout="centered")
 
 # --- Email input at the top ---
