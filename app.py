@@ -2,29 +2,21 @@ import streamlit as st
 import openai
 import fitz  # PyMuPDF
 import os
-# --- Must be the first Streamlit command ---
+# --- This must be the first Streamlit command ---
 st.set_page_config(page_title="EliteCV - AI CV Reviewer", layout="centered")
 # --- Title and instructions ---
 st.title("EliteCV - AI CV Reviewer")
 st.markdown("Upload your CV as a PDF or paste it below for instant AI feedback.")
 # --- Email input at the top ---
 email = st.text_input("Enter your email (optional)", placeholder="you@example.com")
-# Optional: Save email
-if email:
-    with open("emails.txt", "a") as f:
-        f.write(email + "\n")
-import os
-st.set_page_config(page_title="AI CV Reviewer", layout="centered")
-# --- Email input at the top ---
-st.title("AI CV Reviewer")
-st.markdown("Upload your CV as a PDF or paste it below for instant AI feedback.")
-email = st.text_input("Enter your email (optional)", placeholder="you@example.com")
-# Optional: Save email
+
+# Optional: Save email to file
 if email:
     with open("emails.txt", "a") as f:
         f.write(email + "\n")
 # --- File uploader ---
 uploaded_file = st.file_uploader("Upload your CV (PDF format)", type=["pdf"])
+
 if uploaded_file is not None:
     # Extract text from PDF
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
@@ -32,7 +24,7 @@ if uploaded_file is not None:
     for page in doc:
         text += page.get_text()
     st.success("PDF uploaded and text extracted successfully.")
-   
+
     if st.button("Review My CV"):
         with st.spinner("Analyzing your CV..."):
             openai.api_key = os.getenv("OPENAI_API_KEY")
