@@ -16,7 +16,6 @@ if email:
         f.write(email + "\n")
 # --- File uploader ---
 uploaded_file = st.file_uploader("Upload your CV (PDF format)", type=["pdf"])
-
 if uploaded_file is not None:
     # Extract text from PDF
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
