@@ -1,18 +1,17 @@
-st.title("EliteCV - AI CV Reviewer")
-# Email input should come early
-email = st.text_input("Enter your email (optional)", placeholder="you@example.com")
-Gesprek geopend. 1 gelezen bericht.
-Spring naar content
-Gmail gebruiken met schermlezers
-1 van 10
-Mails elite
-Inbox
-Philippe Peeters <ppeeters1989@gmail.com>
-16:04 (9 minuten geleden)
-aan mij
 import streamlit as st
 import openai
 import fitz  # PyMuPDF
+import os
+st.set_page_config(page_title="AI CV Reviewer", layout="centered")
+# --- Title and instructions ---
+st.title("EliteCV - AI CV Reviewer")
+st.markdown("Upload your CV as a PDF or paste it below for instant AI feedback.")
+# --- Email input at the top ---
+email = st.text_input("Enter your email (optional)", placeholder="you@example.com")
+# Optional: Save email
+if email:
+    with open("emails.txt", "a") as f:
+        f.write(email + "\n") 
 import os
 st.set_page_config(page_title="AI CV Reviewer", layout="centered")
 # --- Email input at the top ---
